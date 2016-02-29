@@ -185,6 +185,20 @@ object `AWS::EC2::VPNConnectionRoute` extends DefaultJsonProtocol {
   implicit val format: JsonFormat[`AWS::EC2::VPNConnectionRoute`] = jsonFormat4(`AWS::EC2::VPNConnectionRoute`.apply)
 }
 
+case class `AWS::EC2::VPNGatewayRoutePropagation`(
+  name: String,
+  RouteTableIds: Seq[Token[ResourceRef[`AWS::EC2::RouteTable`]]],
+  VpnGatewayId: Token[ResourceRef[`AWS::EC2::VPNGateway`]],
+  override val Condition: Option[ConditionRef] = None,
+  override val DependsOn: Option[Seq[String]] = None
+) extends Resource[`AWS::EC2::VPNGatewayRoutePropagation`] {
+
+  def when(newCondition: Option[ConditionRef] = Condition) = copy(Condition = newCondition)
+}
+object `AWS::EC2::VPNGatewayRoutePropagation` extends DefaultJsonProtocol {
+  implicit val format: JsonFormat[`AWS::EC2::VPNGatewayRoutePropagation`] = jsonFormat5(`AWS::EC2::VPNGatewayRoutePropagation`.apply)
+}
+
 case class `AWS::EC2::NetworkAcl`(
   name: String,
   VpcId: Token[ResourceRef[`AWS::EC2::VPC`]],
